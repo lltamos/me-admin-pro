@@ -78,7 +78,7 @@ import BreadcrumbExample from './modules/breadcrumb.example'
 let asyncRoutes = [
     {
         meta: {
-            title: '演示',
+            title: 'IddS',
             icon: 'sidebar-default'
         },
         children: [
@@ -88,7 +88,7 @@ let asyncRoutes = [
     },
     {
         meta: {
-            title: '其它',
+            title: 'CMS',
             icon: 'sidebar-other'
         },
         children: [
