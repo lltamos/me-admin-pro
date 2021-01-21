@@ -12,23 +12,23 @@ export default {
     },
     children: [
         {
-            path: 'organization',
-            name: 'organization',
+            path: '/organization',
+            name: 'upmsOrganization',
             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_organization'),
             meta: {
                 title: '机构配置'
             }
         },
         {
-            path: 'system',
-            name: 'system',
+            path: '/system',
+            name: 'opmsSystem',
             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_system'),
             meta: {
                 title: '系统配置'
             }
         },
         {
-            path: 'roles',
+            path: '/roles',
             name: 'roles',
             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_roles'),
             meta: {
@@ -36,7 +36,7 @@ export default {
             }
         },
         {
-            path: 'permission',
+            path: '/permission',
             name: 'permission',
             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_permission'),
             meta: {
@@ -44,7 +44,7 @@ export default {
             }
         },
         {
-            path: 'account',
+            path: '/account',
             name: 'account',
             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_account'),
             meta: {
@@ -52,7 +52,7 @@ export default {
             }
         },
         {
-            path: 'level2',
+            path: '/level2',
             name: 'multilevelMenuExample0',
             component: EmptyLayout,
             redirect: '/multilevel_menu_example/level2/page',
@@ -61,7 +61,7 @@ export default {
             },
             children: [
                 {
-                    path: 'page',
+                    path: '/page',
                     name: 'multilevelMenuExample2-1',
                     component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/multilevel_menu_example/level2/page'),
                     meta: {
@@ -69,7 +69,7 @@ export default {
                     }
                 },
                 {
-                    path: 'level3',
+                    path: '/level3',
                     name: 'multilevelMenuExample2-2',
                     component: EmptyLayout,
                     redirect: '/multilevel_menu_example/level2/level3/page1',
@@ -78,7 +78,7 @@ export default {
                     },
                     children: [
                         {
-                            path: 'page1',
+                            path: '/page1',
                             name: 'multilevelMenuExample2-2-1',
                             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/multilevel_menu_example/level2/level3/page1'),
                             meta: {
@@ -86,7 +86,7 @@ export default {
                             }
                         },
                         {
-                            path: 'page2',
+                            path: '/page2',
                             name: 'multilevelMenuExample2-2-2',
                             component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/multilevel_menu_example/level2/level3/page2'),
                             meta: {

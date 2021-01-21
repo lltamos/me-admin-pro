@@ -93,8 +93,8 @@ let asyncRoutes = [
         },
         children: [
             {
-                path: 'list1',
-                name: 'breadcrumbExampleList1',
+                path: '/list1',
+                name: 'breadcrumbExampleList0',
                 component: () => import(/* webpackChunkName: 'breadcrumb_example' */ '@/views/breadcrumb_example/list1'),
                 meta: {
                     title: '列表1（平级模式）'
