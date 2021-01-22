@@ -2,49 +2,70 @@
     <div>
         <page-header title="管理员管理" />
         <page-main>
-            <el-button size="medium" type="primary" icon="el-icon-plus">新增机构</el-button>
             <search-bar>
                 <el-form :model="search" size="small" label-width="100px" label-suffix="：">
                     <el-row>
                         <el-col :span="8">
-                            <el-form-item label="帐号">
-                                <el-input v-model="search.account" placeholder="请输入帐号，支持模糊查询" clearable
+                            <el-form-item label="组织编号">
+                                <el-input v-model="search.account" placeholder="请输入组织编号" clearable
                                           @keydown.enter.native="getDataList" @clear="getDataList"
                                 />
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="姓名">
-                                <el-input v-model="search.name" placeholder="请输入姓名，支持模糊查询" clearable
+                            <el-form-item label="组织名称">
+                                <el-input v-model="search.name" placeholder="请输入组织姓名，支持模糊查询" clearable
                                           @keydown.enter.native="getDataList" @clear="getDataList"
                                 />
                             </el-form-item>
                         </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="手机号">
-                                <el-input v-model="search.mobile" placeholder="请输入手机号" clearable
-                                          @keydown.enter.native="getDataList" @clear="getDataList"
-                                />
+
+                        <el-col :span="4">
+                            <el-form-item>
+                                <el-button type="primary" size="small" icon="el-icon-search" @click="getDataList">
+                                    筛 选
+                                </el-button>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :span="2">
+                            <el-form-item>
+                                <el-button size="small" type="primary" icon="el-icon-plus">新增机构</el-button>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item>
-                        <el-button type="primary" icon="el-icon-search" @click="getDataList">筛 选</el-button>
-                    </el-form-item>
                 </el-form>
             </search-bar>
             <el-table ref="table" v-loading="loading" class="list-table" :data="dataList" border stripe
-                      highlight-current-row
+                      highlight-current-row max-height="520" empty-text="暂无数据"
                       @selection-change="batch.selectionDataList = $event"
             >
                 <el-table-column v-if="batch.enable" type="selection" width="40" />
-                <el-table-column prop="account" width="100" label="编号" align="center" />
-                <el-table-column prop="name" label="所属上级" width="200" align="center" />
-                <el-table-column prop="mobile" label="组织名称" width="250" align="center" />
-                <el-table-column prop="mobile" label="组织描述" width="250" align="center" />
-                <el-table-column prop="mobile" label="创建时间" width="150" align="center" />
-                <el-table-column label="状态" width="100" align="center" />
-                <el-table-column label="操作" align="center" />
+                <el-table-column prop="id" label="编号" width="100" align="center" />
+                <el-table-column prop="pid" label="所属上级" width="150" align="center" />
+                <el-table-column prop="oName" label="组织名称" align="center" />
+                <el-table-column prop="oDesc" label="组织描述" align="center" />
+                <el-table-column prop="ctime" label="创建时间" width="180" align="center" />
+                <el-table-column label="状态" width="165" align="center">
+                    <template slot-scope="scope">
+                        <el-switch v-model="scope.row.status" size="small" @change="onChangeStatus($event, scope.row)" />
+                    </template>
+                </el-table-column>
+                >
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button type="primary" size="small" icon="el-icon-edit" circle />
+                        <el-dropdown style="margin-left: 12px;" @command="handleMoreOperating($event, scope.row)">
+                            <el-button type="primary" size="small" icon="el-icon-share" circle />
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="edit">编辑</el-dropdown-item>
+                                <el-dropdown-item command="delete" divided @click="onDelete(scope.row)">
+                                    删除
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </template>
+                </el-table-column>
             </el-table>
         </page-main>
     </div>
@@ -88,24 +109,46 @@ export default {
     },
 
     mounted() {
-        let dataList = this.getDataList()
-        console.log(dataList)
+        this.getDataList()
     },
     methods: {
         getDataList() {
             this.loading = true
-            let params = {token: '00001'}
-            this.search.account && (params.account = this.search.account)
-            this.search.name && (params.name = this.search.name)
-            this.search.mobile && (params.mobile = this.search.mobile)
-            this.$api.get('mock/test', {
-                params
-            }).then(res => {
+            this.$api.get('/upms/organization').then(res => {
                 this.loading = false
-                this.dataList = res.data[0]
+                this.dataList = res.data.list
+            }).catch(() => {
+                this.loading = false
             })
-        }
+        },
+        onChangeStatus(val, row) {
+            this.$confirm(`确认${val ? '启用' : '停用'}「${row.oName}」吗？`, '确认信息').then(() => {
+                alert('ok')
+            }).catch(() => {
+            })
+        },
 
+        handleMoreOperating(command, row) {
+            switch (command) {
+                case 'edit':
+                    this.$message('修改' + JSON.stringify(row))
+                    break
+                case 'delete':
+                    this.$message('删除' + JSON.stringify(row))
+                    break
+            }
+        }
     }
 }
 </script>
+
+<style>
+.el-dropdown-link {
+    cursor: pointer;
+    color: #409eff;
+}
+.el-icon-arrow-down {
+    font-size: 12px;
+}
+
+</style>
