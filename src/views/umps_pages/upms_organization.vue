@@ -2,71 +2,86 @@
     <div>
         <page-header title="管理员管理" />
         <page-main>
-            <search-bar>
-                <el-form :model="search" size="small" label-width="100px" label-suffix="：">
-                    <el-row>
-                        <el-col :span="8">
-                            <el-form-item label="组织编号">
-                                <el-input v-model="search.account" placeholder="请输入组织编号" clearable
-                                          @keydown.enter.native="getDataList" @clear="getDataList"
-                                />
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="组织名称">
-                                <el-input v-model="search.name" placeholder="请输入组织姓名，支持模糊查询" clearable
-                                          @keydown.enter.native="getDataList" @clear="getDataList"
-                                />
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :span="4">
-                            <el-form-item>
-                                <el-button type="primary" size="small" icon="el-icon-search" @click="getDataList">
-                                    筛 选
-                                </el-button>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :span="2">
-                            <el-form-item>
-                                <el-button size="small" type="primary" icon="el-icon-plus">新增机构</el-button>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-form>
-            </search-bar>
-            <el-table ref="table" v-loading="loading" class="list-table" :data="dataList" border stripe
-                      highlight-current-row max-height="520" empty-text="暂无数据"
-                      @selection-change="batch.selectionDataList = $event"
-            >
-                <el-table-column v-if="batch.enable" type="selection" width="40" />
-                <el-table-column prop="id" label="编号" width="100" align="center" />
-                <el-table-column prop="pid" label="所属上级" width="150" align="center" />
-                <el-table-column prop="oName" label="组织名称" align="center" />
-                <el-table-column prop="oDesc" label="组织描述" align="center" />
-                <el-table-column prop="ctime" label="创建时间" width="180" align="center" />
-                <el-table-column label="状态" width="165" align="center">
-                    <template slot-scope="scope">
-                        <el-switch v-model="scope.row.status" size="small" @change="onChangeStatus($event, scope.row)" />
-                    </template>
-                </el-table-column>
+            <el-card style="margin-bottom: 12px;">
+                <search-bar>
+                    <el-form :model="search" size="small" label-width="100px" label-suffix="：">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item size="small" label="组织编号">
+                                    <el-input v-model="search.account" placeholder="请输入组织编号" clearable
+                                              @keydown.enter.native="getDataList" @clear="getDataList"
+                                    />
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item size="small" label="组织名称">
+                                    <el-input v-model="search.name" placeholder="请输入组织姓名，支持模糊查询" clearable
+                                              @keydown.enter.native="getDataList" @clear="getDataList"
+                                    />
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="2">
+                                <el-form-item>
+                                    <el-button type="primary" size="small" icon="el-icon-search" @click="getDataList">
+                                        筛 选
+                                    </el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="2">
+                                <el-form-item>
+                                    <router-link to="organization/add">
+                                        <el-button size="small" type="primary" icon="el-icon-plus">新增机构</el-button>
+                                    </router-link>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                </search-bar>
+            </el-card>
+            <el-card>
+                <el-table ref="table" v-loading="loading" size="small" class="list-table" :data="dataList" border
+                          highlight-current-row max-height="520" empty-text="暂无数据"
+                          @selection-change="batch.selectionDataList = $event"
                 >
-                <el-table-column label="操作" align="center">
-                    <template slot-scope="scope">
-                        <el-button type="primary" size="small" icon="el-icon-edit" circle />
-                        <el-dropdown style="margin-left: 12px;" @command="handleMoreOperating($event, scope.row)">
-                            <el-button type="primary" size="small" icon="el-icon-share" circle />
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="edit">编辑</el-dropdown-item>
-                                <el-dropdown-item command="delete" divided @click="onDelete(scope.row)">
-                                    删除
-                                </el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </template>
-                </el-table-column>
-            </el-table>
+                    <el-table-column v-if="batch.enable" type="selection" width="40" />
+                    <el-table-column prop="id" label="编号" width="100" align="center" />
+                    <el-table-column prop="pid" label="所属上级" width="150" align="center" />
+                    <el-table-column prop="oName" label="组织名称" align="center" />
+                    <el-table-column prop="oDesc" label="组织描述" align="center" />
+                    <el-table-column prop="ctime" label="创建时间" width="180" align="center" />
+                    <el-table-column label="状态" width="85" align="center">
+                        <template slot-scope="scope">
+                            <el-switch v-model="scope.row.status" size="small"
+                                       @change="onChangeStatus($event, scope.row)"
+                            />
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="操作" align="center">
+                        <template slot-scope="scope">
+                            <el-popover
+                                placement="right"
+                                trigger="click"
+                            >
+                                <p><b>编号：</b><span style="color: red;">{{ scope.row.id }}</span> </p>
+                                <p><b>所属上级：</b><span style="color: red;">{{ scope.row.pid }}</span> </p>
+                                <p><b>组织名称：</b><span style="color: red;">{{ scope.row.oName }}</span> </p>
+                                <p><b>组织描述：</b><span style="color: red;">{{ scope.row.oDesc }}</span> </p>
+                                <p><b>组织描述：</b><span style="color: red;">{{ scope.row.ctime }}</span> </p>
+                                <el-button slot="reference" type="info" size="small" icon="el-icon-view" circle />
+                            </el-popover>
+                            <el-dropdown style="margin-left: 12px;" @command="handleMoreOperating($event, scope.row)">
+                                <el-button type="primary" size="small" icon="el-icon-more" circle />
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="edit">编辑</el-dropdown-item>
+                                    <el-dropdown-item command="delete" divided @click="onDelete(scope.row)">
+                                        删除
+                                    </el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-card>
         </page-main>
     </div>
 </template>
@@ -81,6 +96,17 @@ export default {
                 vm.$store.commit('keepAlive/add', 'upmsOrganization')
             }
         })
+    },
+    beforeRouteLeave(to, from, next) {
+        if (!this.$store.state.settings.enableTabbar && !this.dialogMode) {
+            // 因为并不是所有的路由跳转都需要将当前页面进行缓存，例如最常见的情况，从列表页进入详情页，则需要将列表页缓存，而从列表页跳转到其它页面，则不需要将列表页缓存
+            // 所以下面的代码意思就是，如果目标路由的 name 不在指定的数组内，则将当前页面的 name 从 keep-alive 中删除
+            if (!['UpmsOrganizationDetails'].includes(to.name)) {
+                // 注意：上面校验的是路由的 name ，下面记录的是当前页面的 name
+                this.$store.commit('keepAlive/remove', 'UpmsOrganization')
+            }
+        }
+        next()
     },
     data() {
         return {
@@ -127,7 +153,6 @@ export default {
             }).catch(() => {
             })
         },
-
         handleMoreOperating(command, row) {
             switch (command) {
                 case 'edit':
@@ -141,14 +166,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.el-dropdown-link {
-    cursor: pointer;
-    color: #409eff;
-}
-.el-icon-arrow-down {
-    font-size: 12px;
-}
-
-</style>

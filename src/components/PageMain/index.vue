@@ -47,8 +47,8 @@ export default {
 <style lang="scss" scoped>
 .page-main {
     position: relative;
-    margin: 20px;
-    padding: 20px;
+    margin: 8px;
+    padding: 12px;
     background-color: #fff;
     &.is-collaspe {
         overflow: hidden;

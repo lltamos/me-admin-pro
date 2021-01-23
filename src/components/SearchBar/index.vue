@@ -45,8 +45,8 @@ export default {
 <style lang="scss" scoped>
 .search-container {
     position: relative;
-    margin: 20px 0;
-    padding: 20px;
+    margin: 12px 0;
+    padding: 12px;
     background-color: #f7f8fa;
     &:first-child {
         margin-top: 0;

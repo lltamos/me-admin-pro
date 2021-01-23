@@ -5,19 +5,51 @@ export default {
     path: '/upms',
     component: Layout,
     redirect: '/upms/organization',
-    name: 'multilevelMenuExample',
+    name: 'upms',
     meta: {
         title: '业务配置',
         icon: 'sidebar-menu'
     },
     children: [
         {
-            path: '/organization',
+            path: 'organization',
             name: 'upmsOrganization',
-            component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_organization'),
+            component: EmptyLayout,
             meta: {
                 title: '机构配置'
-            }
+            },
+            children: [
+                {
+                    path: '',
+                    name: 'index',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_organization'),
+                    meta: {
+                        title: '新增机构',
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                },
+                {
+                    path: 'add',
+                    name: 'upmsOrganizationAdd',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_organization_details'),
+                    meta: {
+                        title: '新增机构',
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                },
+                {
+                    path: 'detail/:id',
+                    name: 'UpmsOrganizationDetails',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_organization_details'),
+                    meta: {
+                        title: '修改机构',
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                }
+            ]
         },
         {
             path: '/system',
