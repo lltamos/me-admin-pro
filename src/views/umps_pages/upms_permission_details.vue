@@ -8,16 +8,7 @@
                 <el-col :md="24" :lg="16">
                     <div v-loading="loading">
                         <el-form ref="form" :model="form" size="small" :rules="rules" label-width="120px" label-suffix="：">
-                            <el-form-item label="机构名称" prop="title">
-                                <el-input v-model="form.title" placeholder="请输入机构名称" />
-                            </el-form-item>
-                            <el-form-item label="机构地址" prop="address">
-                                <cascader-area v-model="form.address" />
-                            </el-form-item>
-                            <el-form-item label="机构描述" prop="desc">
-                                <el-input v-model="form.title" placeholder="请输入机构描述信息" />
-                            </el-form-item>
-                            <el-form-item label="所属机构">
+                            <el-form-item label="所属系统">
                                 <el-select v-model="pidValue" size="small" style="width: 240px;" placeholder="请选择">
                                     <el-option
                                         v-for="item in cities"
@@ -25,11 +16,24 @@
                                         :label="item.label"
                                         :value="item.value"
                                     >
-                                        <span style="float: left;">{{ item.label }}</span>
-                                        <span style="float: right; color: #8492a6; font-size: 13px;">{{ item.value }}</span>
+                                        <span style="float: left;">{{ item.id }}</span>
+                                        <span style="float: right; color: #8492a6; font-size: 13px;">{{ item.label }}</span>
                                     </el-option>
                                 </el-select>
                             </el-form-item>
+                            <el-form-item label="权限名称" prop="title">
+                                <el-input v-model="form.title" placeholder="请输入机构名称" />
+                            </el-form-item>
+                            <el-form-item label="权限类型">
+                                <el-radio-group>
+                                    <el-radio :label="1">菜单</el-radio>
+                                    <el-radio :label="2">按钮</el-radio>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="机构描述" prop="desc">
+                                <el-input v-model="form.title" placeholder="请输入机构描述信息" />
+                            </el-form-item>
+
                             <el-form-item label="机构图标">
                                 <ImageUpload
                                     action="http://scrm.1daas.com/api/upload/upload"
@@ -73,20 +77,20 @@ export default {
                 ]
             },
             cities: [{
-                value: 'Beijing',
-                label: '北京同仁堂有限公司'
+                id: '01',
+                label: 'CRM'
             }, {
-                value: 'Shanghai',
-                label: '上海山姆有限公司'
+                id: '02',
+                label: 'TMS'
             }],
-            pidValue: '',
+            pidValue: '无',
             imageUrl: ''
         }
     },
 
     computed: {
         pageTitle: function() {
-            return this.$route.name == 'UpmsOrganizationDetails' ? '编辑机构' : '新增机构'
+            return this.$route.name == 'UpmsOrganizationDetails' ? '编辑权限' : '新增权限'
         }
     },
     mounted() {

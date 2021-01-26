@@ -2,8 +2,11 @@
     <div>
         <page-header title="管理员管理" />
         <page-main>
-            <el-card style="margin-bottom: 12px;">
-                <search-bar>
+            <router-link :to="{name:'upmsOrganizationAdd'}">
+                <el-button size="small" type="primary" style="margin-bottom: 8px;" icon="el-icon-plus">新增机构</el-button>
+            </router-link>
+            <el-card style="margin-bottom: 8px; max-height: max-content;">
+                <search-bar show-more unfold @toggle="searchMore = $event">
                     <el-form :model="search" size="small" label-width="100px" label-suffix="：">
                         <el-row>
                             <el-col :span="8">
@@ -20,24 +23,16 @@
                                     />
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="2">
-                                <el-form-item>
-                                    <el-button type="primary" size="small" icon="el-icon-search" @click="getDataList">
-                                        筛 选
-                                    </el-button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="2">
-                                <el-form-item>
-                                    <router-link to="organization/add">
-                                        <el-button size="small" type="primary" icon="el-icon-plus">新增机构</el-button>
-                                    </router-link>
-                                </el-form-item>
-                            </el-col>
                         </el-row>
+                        <el-form-item>
+                            <el-button type="primary" s icon="el-icon-search" @click="getDataList">筛选</el-button>
+                            <el-button icon="el-icon-download">导出</el-button>
+                            <el-button type="text" size="small">查看已导出记录</el-button>
+                        </el-form-item>
                     </el-form>
                 </search-bar>
             </el-card>
+
             <el-card>
                 <el-table ref="table" v-loading="loading" size="small" class="list-table" :data="dataList" border
                           highlight-current-row max-height="520" empty-text="暂无数据"
@@ -72,7 +67,9 @@
                             <el-dropdown style="margin-left: 12px;" @command="handleMoreOperating($event, scope.row)">
                                 <el-button type="primary" size="small" icon="el-icon-more" circle />
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="edit">编辑</el-dropdown-item>
+                                    <router-link :to="{name:'UpmsOrganizationDetails' , params:{id:scope.row.id}}" tag="span">
+                                        <el-dropdown-item>编辑</el-dropdown-item>
+                                    </router-link>
                                     <el-dropdown-item command="delete" divided @click="onDelete(scope.row)">
                                         删除
                                     </el-dropdown-item>
@@ -88,26 +85,6 @@
 
 <script>
 export default {
-    name: 'UpmsOrganization',
-    beforeRouteEnter(to, from, next) {
-        // 进入页面时，先将当前页面的 name 信息存入 keep-alive 全局状态
-        next(vm => {
-            if (!vm.$store.state.settings.enableTabbar && !vm.dialogMode) {
-                vm.$store.commit('keepAlive/add', 'upmsOrganization')
-            }
-        })
-    },
-    beforeRouteLeave(to, from, next) {
-        if (!this.$store.state.settings.enableTabbar && !this.dialogMode) {
-            // 因为并不是所有的路由跳转都需要将当前页面进行缓存，例如最常见的情况，从列表页进入详情页，则需要将列表页缓存，而从列表页跳转到其它页面，则不需要将列表页缓存
-            // 所以下面的代码意思就是，如果目标路由的 name 不在指定的数组内，则将当前页面的 name 从 keep-alive 中删除
-            if (!['UpmsOrganizationDetails'].includes(to.name)) {
-                // 注意：上面校验的是路由的 name ，下面记录的是当前页面的 name
-                this.$store.commit('keepAlive/remove', 'UpmsOrganization')
-            }
-        }
-        next()
-    },
     data() {
         return {
             // 是否开启详情弹框模式
@@ -130,7 +107,8 @@ export default {
             },
             // 列表数据
             dataList: [],
-            loading: false
+            loading: false,
+            searchMore: false
         }
     },
 
@@ -155,9 +133,6 @@ export default {
         },
         handleMoreOperating(command, row) {
             switch (command) {
-                case 'edit':
-                    this.$message('修改' + JSON.stringify(row))
-                    break
                 case 'delete':
                     this.$message('删除' + JSON.stringify(row))
                     break

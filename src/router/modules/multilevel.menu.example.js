@@ -5,7 +5,6 @@ export default {
     path: '/upms',
     component: Layout,
     redirect: '/upms/organization',
-    name: 'upms',
     meta: {
         title: '业务配置',
         icon: 'sidebar-menu'
@@ -13,7 +12,6 @@ export default {
     children: [
         {
             path: 'organization',
-            name: 'upmsOrganization',
             component: EmptyLayout,
             meta: {
                 title: '机构配置'
@@ -21,7 +19,7 @@ export default {
             children: [
                 {
                     path: '',
-                    name: 'index',
+                    name: 'upmsOrganization',
                     component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_organization'),
                     meta: {
                         title: '新增机构',
@@ -53,11 +51,39 @@ export default {
         },
         {
             path: '/system',
-            name: 'opmsSystem',
-            component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_system'),
+            component: EmptyLayout,
             meta: {
                 title: '系统配置'
-            }
+            },
+            children: [
+                {
+                    path: '',
+                    name: 'UpmsSystem',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_system'),
+                    meta: {
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                },
+                {
+                    path: 'add',
+                    name: 'UpmsSystemAdd',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_system_details'),
+                    meta: {
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                },
+                {
+                    path: 'detail/:id',
+                    name: 'UpmsSystemDetails',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_system_details'),
+                    meta: {
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                }
+            ]
         },
         {
             path: '/roles',
@@ -69,11 +95,39 @@ export default {
         },
         {
             path: '/permission',
-            name: 'permission',
-            component: () => import(/* webpackChunkName: 'multilevel_menu_example' */ '@/views/umps_pages/upms_permission'),
+            component: EmptyLayout,
             meta: {
                 title: '权限配置'
-            }
+            },
+            children: [
+                {
+                    path: '',
+                    name: 'UpmsPermission',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_permission'),
+                    meta: {
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                },
+                {
+                    path: 'add',
+                    name: 'UpmsPermissionAdd',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_permission_details'),
+                    meta: {
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                },
+                {
+                    path: 'detail/:id',
+                    name: 'UpmsPermissionDetails',
+                    component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps_pages/upms_permission_details'),
+                    meta: {
+                        sidebar: false,
+                        breadcrumb: false
+                    }
+                }
+            ]
         },
         {
             path: '/account',
