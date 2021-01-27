@@ -71,7 +71,7 @@ const constantRoutes = [
     }
 ]
 
-import MultilevelMenuExample from './modules/multilevel.menu.example'
+import upms from './modules/upms'
 import BreadcrumbExample from './modules/breadcrumb.example'
 
 // 当 children 不为空的主导航只有一项时，则隐藏
@@ -82,7 +82,7 @@ let asyncRoutes = [
             icon: 'sidebar-default'
         },
         children: [
-            MultilevelMenuExample,
+            upms,
             BreadcrumbExample
         ]
     },

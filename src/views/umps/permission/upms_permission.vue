@@ -37,7 +37,9 @@
                 <el-table ref="table" v-loading="loading" size="small" class="list-table" :data="dataList" border
                           highlight-current-row max-height="520"
                           empty-text="暂无数据"
-                          row-key="id"
+                          :row-key="getRowId"
+                          :load="load"
+                          lazy
                           :tree-props="{children: 'children'}"
                           @selection-change="batch.selectionDataList = $event"
                 >
@@ -110,7 +112,7 @@ export default {
             },
             // 列表数据
             dataList: [],
-            loading: false
+            loading: true
         }
     },
 
@@ -139,6 +141,9 @@ export default {
                     this.$message('删除' + JSON.stringify(row))
                     break
             }
+        },
+        getRowId(row) {
+            return row.id
         }
     }
 }
