@@ -11,7 +11,7 @@ export default {
         {
             path: 'list',
             name: 'UpmsSystem',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/system/upms_system'),
+            component: () => import('@/views/umps/system/upms_system'),
             meta: {
                 sidebar: false,
                 breadcrumb: false,
@@ -21,7 +21,7 @@ export default {
         {
             path: 'add',
             name: 'UpmsSystemAdd',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/system/upms_system_details'),
+            component: () => import('@/views/umps/system/upms_system_details'),
             meta: {
                 sidebar: false,
                 breadcrumb: false
@@ -30,7 +30,7 @@ export default {
         {
             path: 'detail/:id',
             name: 'UpmsSystemDetails',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/system/upms_system_details'),
+            component: () => import('@/views/umps/system/upms_system_details'),
             meta: {
                 sidebar: false,
                 breadcrumb: false

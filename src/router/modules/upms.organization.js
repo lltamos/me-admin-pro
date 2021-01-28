@@ -12,7 +12,7 @@ export default {
         {
             path: 'list',
             name: 'upmsOrganization',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/organization/upms_organization'),
+            component: () => import('@/views/umps/organization/upms_organization'),
             meta: {
                 title: '机构列表',
                 sidebar: false,
@@ -23,7 +23,7 @@ export default {
         {
             path: 'add',
             name: 'upmsOrganizationAdd',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/organization/upms_organization_details'),
+            component: () => import('@/views/umps/organization/upms_organization_details'),
             meta: {
                 title: '新增机构',
                 sidebar: false,
@@ -34,7 +34,7 @@ export default {
         {
             path: 'detail/:id',
             name: 'UpmsOrganizationDetails',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/organization/upms_organization_details'),
+            component: () => import('@/views/umps/organization/upms_organization_details'),
             meta: {
                 title: '修改机构',
                 sidebar: false,

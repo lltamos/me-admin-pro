@@ -10,7 +10,7 @@ export default  {
         {
             path: '',
             name: 'UpmsPermission',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/permission/upms_permission'),
+            component: () => import('@/views/umps/permission/upms_permission'),
             meta: {
                 sidebar: false,
                 breadcrumb: false
@@ -19,7 +19,7 @@ export default  {
         {
             path: 'add',
             name: 'UpmsPermissionAdd',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/permission/upms_permission_details'),
+            component: () => import('@/views/umps/permission/upms_permission_details'),
             meta: {
                 sidebar: false,
                 breadcrumb: false
@@ -28,7 +28,7 @@ export default  {
         {
             path: 'detail/:id',
             name: 'UpmsPermissionDetails',
-            component: () => import(/* webpackChunkName: 'pages_example' */ '@/views/umps/permission/upms_permission_details'),
+            component: () => import('@/views/umps/permission/upms_permission_details'),
             meta: {
                 sidebar: false,
                 breadcrumb: false

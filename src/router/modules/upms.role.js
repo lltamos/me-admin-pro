@@ -11,7 +11,7 @@ export default {
         {
             path: 'list',
             name: 'UpmsRoleList',
-            component: () => import(/* webpackChunkName: 'test' */ '@/views/umps/role/list'),
+            component: () => import('@/views/umps/role/list'),
             meta: {
                 sidebar: false,
                 breadcrumb: false,
@@ -22,7 +22,7 @@ export default {
         {
             path: 'detail',
             name: 'testDetail',
-            component: () => import(/* webpackChunkName: 'test' */ '@/views/umps/role/detail'),
+            component: () => import('@/views/umps/role/detail'),
             meta: {
                 sidebar: false,
                 breadcrumb: false
