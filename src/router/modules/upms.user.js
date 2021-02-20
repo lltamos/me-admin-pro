@@ -5,7 +5,7 @@ export default  {
     redirect: 'user/list',
     component: EmptyLayout,
     meta: {
-        title: '账户配置'
+        title: '用户配置'
     },
     children: [
         {

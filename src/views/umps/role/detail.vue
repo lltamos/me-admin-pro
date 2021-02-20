@@ -4,8 +4,8 @@
             <el-button icon="el-icon-arrow-left" size="mini" round @click="$router.go(-1)">返 回</el-button>
         </page-header>
         <page-main>
-            <el-row>
-                <el-col :md="24" :lg="16">
+            <el-row :md="24" :lg="12">
+                <el-col :md="24" :lg="12">
                     <DetailForm :id="$route.params.id" ref="form" />
                 </el-col>
             </el-row>
