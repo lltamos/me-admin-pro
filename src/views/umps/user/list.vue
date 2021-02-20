@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header title="用户管理" />
+        <page-header title="用户管理"/>
         <page-main>
             <el-button type="primary" icon="el-icon-plus" @click="onCreate">新增用户</el-button>
             <search-bar>
@@ -8,7 +8,7 @@
                     <el-row>
                         <el-col :span="12">
                             <el-form-item label="标题">
-                                <el-input v-model="search.title" placeholder="请输入标题，支持模糊查询" clearable
+                                <el-input v-model="search.key" placeholder="请输入标题，支持模糊查询" clearable
                                           @keydown.enter.native="getDataList" @clear="getDataList"
                                 />
                             </el-form-item>
@@ -32,8 +32,11 @@
                       highlight-current-row @sort-change="onSortChange"
                       @selection-change="batch.selectionDataList = $event"
             >
-                <el-table-column v-if="batch.enable" type="selection" width="40" />
-                <el-table-column prop="title" label="标题" />
+                <el-table-column v-if="batch.enable" type="selection" width="40"/>
+                <el-table-column prop="id" label="编号"/>
+                <el-table-column prop="phone" label="电话"/>
+                <el-table-column prop="nickname" label="昵称"/>
+                <el-table-column prop="ctime" label="创建时间"/>
                 <el-table-column label="操作" width="250" align="center">
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" plain @click="onEdit(scope.row)">编辑</el-button>
@@ -54,9 +57,7 @@ import paginationMixin from '@/mixins/pagination'
 
 export default {
     name: 'UmpsUserList',
-    components: {
-
-    },
+    components: {},
     mixins: [paginationMixin],
     beforeRouteEnter(to, from, next) {
         // 进入页面时，先将当前页面的 name 信息存入 keep-alive 全局状态
@@ -81,7 +82,7 @@ export default {
         return {
             // 搜索
             search: {
-                title: ''
+                key: ''
             },
             // 批量操作
             batch: {
@@ -100,13 +101,14 @@ export default {
         getDataList() {
             this.loading = true
             let params = this.getParams()
-            this.search.title && (params.title = this.search.title)
-            this.$api.get('mock/umps/user/list', {
+            console.log(JSON.stringify(params))
+            this.search.key && (params.key = this.search.key)
+            this.$api.get('/upms/user/list', {
                 params
             }).then(res => {
                 this.loading = false
-                this.dataList = res.data.list
-                this.pagination.total = res.data.total
+                this.dataList = res.data.content
+                this.pagination.total = res.data.totalElements
             })
         },
         onCreate() {
@@ -117,10 +119,26 @@ export default {
         },
         onEdit(row) {
             this.$router.push({
-                name: 'UpmsUserDetail',
+                name: 'CreatUpmsUser',
                 params: {
                     id: row.id
                 }
+            })
+        },
+        onDel(row) {
+            this.$confirm(`确认删除账号   「${row.phone}」吗？`, '确认信息').then(() => {
+                this.$api.get('/upms/user/delete', {
+                    params: {
+                        id: row.id
+                    }
+                }).then(() => {
+                    this.getDataList()
+                    this.$message.success({
+                        message: '删除成功',
+                        center: true
+                    })
+                })
+            }).catch(() => {
             })
         }
 

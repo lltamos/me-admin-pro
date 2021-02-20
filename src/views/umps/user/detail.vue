@@ -1,10 +1,10 @@
 <template>
     <div>
-        <page-header :title="$route.name == 'routerName' ? '新增用户' : '编辑用户'">
+        <page-header :title="$route.name == 'UpmsUserDetail' ? '编辑用户' : '新增用户'">
             <el-button icon="el-icon-arrow-left" size="mini" round @click="$router.go(-1)">返 回</el-button>
         </page-header>
         <page-main>
-            <el-card>
+            <el-card >
                 <DetailForm :id="$route.params.id" ref="form" />
             </el-card>
         </page-main>

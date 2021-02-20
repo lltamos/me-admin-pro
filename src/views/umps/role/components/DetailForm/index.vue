@@ -6,14 +6,12 @@
             </el-form-item>
             <el-form-item label="所属系统">
                 <el-select v-model="pidValue"
-                           style="width: 240px;" placeholder="请选择"
-                >
+                           style="width: 240px;" placeholder="请选择">
                     <el-option
                         v-for="item in cities"
                         :key="item.value"
                         :label="item.label"
-                        :value="item.value"
-                    >
+                        :value="item.value">
                         <span style="float: left;">{{ item.id }}</span>
                         <span style="float: right; color: #8492a6; font-size: 13px;">{{
                             item.label

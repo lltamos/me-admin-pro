@@ -122,7 +122,7 @@ export default {
     methods: {
         getDataList() {
             this.loading = true
-            this.$api.get('/upms/organization').then(res => {
+            this.$api.get('mock/upms/organization').then(res => {
                 this.loading = false
                 this.dataList = res.data.list
             }).catch(() => {

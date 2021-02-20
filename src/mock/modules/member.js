@@ -8,7 +8,7 @@ module.exports = [
                 state: 1,
                 data: {
                     account: option.body.account,
-                    token: '@string',
+                    token: '212iu331313442',
                     failure_time: Date.parse(new Date()) / 1000 + 24 * 60 * 60
                 }
             }

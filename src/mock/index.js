@@ -44,7 +44,7 @@ mocksContext.keys().forEach(file_name => {
         Mock.mock(
             /*    mock的请求地址需要拼接上mock
               new RegExp(`${process.env.VUE_APP_API_ROOT}mock/${mock.url}`),*/
-            new RegExp(`${process.env.VUE_APP_API_ROOT}${mock.url}`),
+            new RegExp(`${process.env.VUE_APP_API_ROOT}mock/${mock.url}`),
             mock.type || 'get',
             XHR2ExpressReqWrap(mock.result)
         )

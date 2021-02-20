@@ -3,7 +3,7 @@ import UpmsRole from '@/router/modules/upms.role'
 import UpmsOrganization from '@/router/modules/upms.organization'
 import UpmsSystem from '@/router/modules/upms.system'
 import UpmsPermission from '@/router/modules/upms.permission'
-import UpmsAccount from '@/router/modules/upms.account'
+import UpmsAccount from '@/router/modules/upms.user'
 
 export default {
     path: '/upms',

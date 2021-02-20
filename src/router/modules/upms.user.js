@@ -26,6 +26,15 @@ export default  {
                 sidebar: false,
                 breadcrumb: false
             }
+        },
+        {
+            path: 'add',
+            name: 'CreatUpmsUser',
+            component: () => import('@/views/umps/user/detail'),
+            meta: {
+                sidebar: false,
+                breadcrumb: false
+            }
         }
     ]
 }

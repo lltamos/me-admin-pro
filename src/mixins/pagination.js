@@ -17,7 +17,8 @@ export default {
         getParams(params = {}) {
             const baseParams = {
                 from: (this.pagination.page - 1) * this.pagination.size,
-                limit: this.pagination.size
+                limit: this.pagination.size,
+                page: this.pagination.page
             }
             if (this.sort && this.order) {
                 baseParams.sort = this.sort
