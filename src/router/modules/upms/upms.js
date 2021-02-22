@@ -1,9 +1,9 @@
 import Layout from '@/layout'
-import UpmsRole from '@/router/modules/upms.role'
-import UpmsOrganization from '@/router/modules/upms.organization'
-import UpmsSystem from '@/router/modules/upms.system'
-import UpmsPermission from '@/router/modules/upms.permission'
-import UpmsAccount from '@/router/modules/upms.user'
+import UpmsRole from '@/router/modules/upms/upms.role'
+import UpmsOrganization from '@/router/modules/upms/upms.organization'
+import UpmsSystem from '@/router/modules/upms/upms.system'
+import UpmsPermission from '@/router/modules/upms/upms.permission'
+import UpmsAccount from '@/router/modules/upms/upms.user'
 
 export default {
     path: '/upms',

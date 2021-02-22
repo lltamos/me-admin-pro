@@ -71,7 +71,9 @@ const constantRoutes = [
     }
 ]
 
-import upms from './modules/upms'
+import upms from './modules/upms/upms'
+import tms from './modules/tms/tms'
+
 import BreadcrumbExample from './modules/breadcrumb.example'
 
 // 当 children 不为空的主导航只有一项时，则隐藏
@@ -88,8 +90,17 @@ let asyncRoutes = [
     },
     {
         meta: {
+            title: 'TMS',
+            icon: 'sidebar-default'
+        },
+        children: [
+            tms
+        ]
+    },
+    {
+        meta: {
             title: 'CMS',
-            icon: 'sidebar-other'
+            icon: 'sidebar-default'
         },
         children: [
             {

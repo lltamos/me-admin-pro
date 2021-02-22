@@ -10,7 +10,7 @@ for (let i = 0; i < 50; i++) {
 
 module.exports = [
     {
-        url: 'umps/user/list',
+        url: 'tiku/question_reps/list',
         type: 'get',
         result: option => {
             let { title, from, limit } = option.query
@@ -33,7 +33,7 @@ module.exports = [
         }
     },
     {
-        url: 'umps/user/detail',
+        url: 'tiku/question_reps/detail',
         type: 'get',
         result: option => {
             let info = AllList.filter(item => item.id == option.query.id)
@@ -45,7 +45,7 @@ module.exports = [
         }
     },
     {
-        url: 'umps/user/create',
+        url: 'tiku/question_reps/create',
         type: 'post',
         result: {
             error: '',
@@ -56,7 +56,7 @@ module.exports = [
         }
     },
     {
-        url: 'umps/user/edit',
+        url: 'tiku/question_reps/edit',
         type: 'post',
         result: {
             error: '',
@@ -67,7 +67,7 @@ module.exports = [
         }
     },
     {
-        url: 'umps/user/delete',
+        url: 'tiku/question_reps/delete',
         type: 'post',
         result: {
             error: '',
